@@ -1,0 +1,39 @@
+CREATE TABLE user (user_id uuid,email text,phone_no text,account_non_expired boolean,account_non_locked boolean,
+active boolean,credentials_non_expired boolean,firstname text,lastname text,
+password text,profile_image blob,roles list<text>,username text,
+PRIMARY KEY (user_id));
+
+
+
+
+# View Based on Authentication ID
+CREATE MATERIALIZED VIEW user_details_by_email
+AS SELECT "user_id", "email", "phone_no", "account_non_expired", "account_non_locked",
+"active", "credentials_non_expired", "firstname", "lastname",
+"password", "profile_image", "roles", "username" FROM user 
+WHERE email IS NOT NULL AND user_id IS NOT NULL primary key(email,user_id);
+
+CREATE MATERIALIZED VIEW user_details_by_phoneno
+AS SELECT "user_id", "email", "phone_no", "account_non_expired", "account_non_locked",
+"active", "credentials_non_expired", "firstname", "lastname",
+"password", "profile_image", "roles", "username" FROM user 
+WHERE phone_no IS NOT NULL AND user_id IS NOT NULL primary key(phone_no,user_id);
+
+
+
+
+# 1) Password is 123
+# 2) Password is chandhu@123
+insert into user(user_id,email,phone_no,account_non_expired,account_non_locked,
+active, credentials_non_expired,firstname,lastname,
+password, profile_image, roles, username) 
+values ('50554d6e-29bb-11e5-b345-feff819cdc9f','vengat@gmail.com', '9876543210',true, true, true, true, 'Vengatesan', 'Nagarajan', 
+'$2a$10$2pbxp0YYzEAU4VNv/a3a0OybiFjN8RhXozAKSe8GMecwyvcVRLnvS', textAsBlob('') , ['ROLE_ADMIN', 'ROLE_USER'],'vengatesanns'); 
+
+
+insert into user(user_id, username, email, fullname, profile_image,
+password, active, phone_no, roles) values (now(), 'chandu', 'chandu@gmail.com', 'Sai Chandhu',
+'', '', true, '1234567890', ['ROLE_USER']); 
+
+
+$2a$10$qZbR7e.Kvx51mIq0c3uubOetwCCyyxxwkpLKgr/wHniw8uojdD93.
