@@ -23,7 +23,7 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
 	private final ClientRepository clientRepository;
 
 	@Override
-	public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
+	public ClientDetails loadClientByClientId(String clientId) {
 		Optional<Client> client = clientRepository.findByClientId(clientId);
 		if (client.isPresent()) {
 			return new CustomClientDetails(client.get());

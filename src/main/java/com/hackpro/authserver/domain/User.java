@@ -47,7 +47,7 @@ public class User {
 
 	@Column("profile_image")
 	@CassandraType(type = Name.BLOB)
-	private byte[] profileImage;
+	private String profileImage;
 
 	@Column("roles")
 	private List<String> roles;

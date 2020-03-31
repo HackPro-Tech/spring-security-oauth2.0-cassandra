@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	// Fetch User based on Email Address or Phone No
 	@Override
-	public UserDetailsPrincipal loadUserByUsername(String emailOrPhoneNo) throws UsernameNotFoundException {
+	public UserDetailsPrincipal loadUserByUsername(String emailOrPhoneNo) {
 		UserDetailsPrincipal user = userService.getUserByEmailOrPhoneNo(emailOrPhoneNo);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not available, please check Email or PhoneNo");
